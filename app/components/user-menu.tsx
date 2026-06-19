@@ -27,7 +27,7 @@ export default function UserMenu({ avatarUrl, name }: Props) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 hover:ring-2 hover:ring-gray-300 transition-all"
+        className="w-8 h-8 rounded-full overflow-hidden border-2 border-white/40 hover:ring-2 hover:ring-white/60 transition-all"
       >
         {avatarUrl ? (
           <Image src={avatarUrl} alt={name ?? 'ユーザー'} width={32} height={32} />

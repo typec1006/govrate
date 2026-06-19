@@ -16,10 +16,10 @@ export default function HeaderNav() {
         <Link
           key={href}
           href={href}
-          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+          className={`px-4 py-1 text-sm font-bold transition-colors border-b-2 ${
             pathname.startsWith(href)
-              ? 'bg-gray-900 text-white'
-              : 'text-gray-600 hover:bg-gray-100'
+              ? 'text-white border-white'
+              : 'text-blue-200 border-transparent hover:text-white hover:border-blue-300'
           }`}
         >
           {label}

@@ -13,19 +13,22 @@ export default async function RankingPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {!user && (
-        <div className="mb-6 flex items-center justify-between gap-4 p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-700">
-          <span>ログインすると知事に投票できます</span>
+        <div className="mb-6 flex items-center justify-between gap-4 p-4 bg-[#e8f1fb] border border-[#bcd9f5] rounded-xl text-sm text-[#044a80]">
+          <span className="font-medium">ログインすると知事に投票できます</span>
           <form action={signInWithGoogle}>
             <button
               type="submit"
-              className="shrink-0 font-medium underline hover:no-underline"
+              className="shrink-0 font-bold underline hover:no-underline"
             >
               Googleでログイン
             </button>
           </form>
         </div>
       )}
-      <h1 className="text-2xl font-bold mb-6">知事ランキング</h1>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-1.5 h-7 bg-[#0571e6] rounded-full" />
+        <h1 className="text-2xl font-black text-[#020f2a]">知事ランキング</h1>
+      </div>
       <RankingList initialData={(ranking ?? []) as RankingRow[]} />
     </div>
   )

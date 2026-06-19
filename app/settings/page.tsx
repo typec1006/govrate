@@ -15,38 +15,45 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-lg mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-8">設定</h1>
+      <div className="flex items-center gap-3 mb-8">
+        <div className="w-1.5 h-7 bg-[#0571e6] rounded-full" />
+        <h1 className="text-2xl font-black text-[#020f2a]">設定</h1>
+      </div>
 
-      <div className="bg-white border border-gray-100 rounded-xl p-6 mb-4">
+      {/* アカウント情報 */}
+      <div className="bg-white rounded-lg p-5 mb-4 border border-gray-200">
+        <p className="text-xs font-bold uppercase tracking-wider mb-4 text-[#044a80]">アカウント</p>
         <div className="flex items-center gap-4">
           {avatarUrl ? (
-            <Image src={avatarUrl} alt={name} width={64} height={64} className="rounded-full" />
+            <Image src={avatarUrl} alt={name} width={56} height={56} className="rounded-full" />
           ) : (
-            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xl text-gray-600">
+            <div className="w-14 h-14 rounded-full bg-gray-200 flex items-center justify-center text-lg text-gray-600">
               {name[0] ?? 'U'}
             </div>
           )}
           <div>
-            <div className="font-medium text-gray-900">{name}</div>
+            <div className="font-semibold text-gray-900">{name}</div>
             <div className="text-sm text-gray-500">{email}</div>
           </div>
         </div>
       </div>
 
-      <div className="bg-white border border-gray-100 rounded-xl p-6 mb-4">
-        <h2 className="font-medium text-gray-900 mb-4">ログアウト</h2>
+      {/* ログアウト */}
+      <div className="bg-white rounded-lg p-5 mb-4 border border-gray-200">
+        <p className="text-xs font-bold uppercase tracking-wider mb-4 text-[#044a80]">セッション</p>
         <form action={signOut}>
           <button
             type="submit"
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            className="px-5 py-2 rounded-full text-sm font-bold text-white bg-[#0571e6] transition-colors hover:bg-[#0a63c4]"
           >
             ログアウト
           </button>
         </form>
       </div>
 
-      <div className="bg-white border border-red-100 rounded-xl p-6">
-        <h2 className="font-medium text-red-600 mb-1">退会</h2>
+      {/* 退会 */}
+      <div className="bg-white rounded-lg p-5 border border-red-200">
+        <p className="text-xs font-bold uppercase tracking-wider mb-1 text-[#c0392b]">退会</p>
         <p className="text-sm text-gray-500 mb-4">
           退会すると、すべての投票データが削除されます。
         </p>

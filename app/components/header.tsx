@@ -9,9 +9,9 @@ export default async function Header() {
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <header className="border-b border-gray-200 bg-white sticky top-0 z-40">
+    <header className="sticky top-0 z-40 bg-[#044a80]">
       <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
-        <Link href="/" className="font-bold text-lg tracking-tight">知事レート</Link>
+        <Link href="/" className="font-black text-lg tracking-tight text-white">知事レート</Link>
         <div className="flex items-center gap-3">
           {user ? (
             <>
@@ -25,7 +25,7 @@ export default async function Header() {
             <form action={signInWithGoogle}>
               <button
                 type="submit"
-                className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 bg-white rounded-full text-sm font-bold text-[#044a80] transition-colors hover:bg-gray-100"
               >
                 <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>

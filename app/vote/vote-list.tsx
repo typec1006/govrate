@@ -48,14 +48,14 @@ export default function VoteList({ governors, votes }: Props) {
         placeholder="都道府県・知事名で検索"
         value={search}
         onChange={e => setSearch(e.target.value)}
-        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm mb-4 outline-none focus:ring-2 focus:ring-gray-200"
+        className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm mb-4 outline-none focus:ring-2 focus:ring-[#0571e6]"
       />
 
       <div className="flex flex-wrap gap-2 mb-3">
         <button
           onClick={() => setSelectedRegion(null)}
-          className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-            !selectedRegion ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+          className={`px-3 py-1.5 rounded-full text-sm font-bold transition-colors ${
+            !selectedRegion ? 'bg-[#044a80] text-white' : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
           }`}
         >
           すべて
@@ -64,8 +64,8 @@ export default function VoteList({ governors, votes }: Props) {
           <button
             key={region}
             onClick={() => setSelectedRegion(selectedRegion === region ? null : region)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              selectedRegion === region ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            className={`px-3 py-1.5 rounded-full text-sm font-bold transition-colors ${
+              selectedRegion === region ? 'bg-[#044a80] text-white' : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
             }`}
           >
             {region}
@@ -78,8 +78,8 @@ export default function VoteList({ governors, votes }: Props) {
           <button
             key={value}
             onClick={() => setVoteStatus(value)}
-            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              voteStatus === value ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            className={`px-3 py-1.5 rounded-full text-sm font-bold transition-colors ${
+              voteStatus === value ? 'bg-[#0571e6] text-white' : 'bg-white border border-gray-300 text-gray-600 hover:bg-gray-50'
             }`}
           >
             {label}
@@ -91,16 +91,16 @@ export default function VoteList({ governors, votes }: Props) {
         {filtered.map(g => {
           const currentScore = localVotes[g.id]
           return (
-            <div key={g.id} className="flex items-center gap-3 p-4 bg-white border border-gray-100 rounded-xl">
+            <div key={g.id} className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium text-gray-900">{g.name}</span>
-                  <span className="text-sm text-gray-500">{g.prefecture}</span>
+                  <span className="font-bold text-[#020f2a]">{g.name}</span>
+                  <span className="text-sm text-[#5a5a5a]">{g.prefecture}</span>
                   <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">
                     {g.party}
                   </span>
                   {currentScore && (
-                    <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full">
+                    <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded-full font-medium">
                       投票済み
                     </span>
                   )}
@@ -111,9 +111,9 @@ export default function VoteList({ governors, votes }: Props) {
                   <button
                     key={score}
                     onClick={() => handleVote(g.id, score)}
-                    className={`w-9 h-9 rounded-lg text-sm font-bold transition-colors ${
+                    className={`w-9 h-9 rounded-lg text-sm font-black transition-colors ${
                       currentScore === score
-                        ? 'bg-gray-900 text-white'
+                        ? 'bg-[#044a80] text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
