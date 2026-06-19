@@ -5,21 +5,21 @@ Supabaseでテーブル・RLS・ビューを作成し、47知事の初期デー�
 ## TODO
 
 ### テーブル作成
-- [ ] `users` テーブル作成
-  - `id` uuid PK、`google_id` string UK、`email`、`name`、`avatar_url`、`created_at`
-- [ ] `governors` テーブル作成
+- [x] `users` テーブル作成
+  - `id` uuid PK、`google_id` string UK、`avatar_url`、`created_at`
+- [x] `governors` テーブル作成
   - `id` uuid PK、`prefecture`、`name`、`party`、`region`、`created_at`
-- [ ] `votes` テーブル作成
+- [x] `votes` テーブル作成
   - `id` uuid PK、`user_id` FK→users、`governor_id` FK→governors、`score` int、`created_at`、`updated_at`
   - `UNIQUE(user_id, governor_id)` 制約を追加
 
 ### RLSポリシー設定
-- [ ] `governors`：全員 SELECT 可（RLS有効化 + SELECT policy）
-- [ ] `votes`：ログインユーザーが自分のレコードのみ SELECT / INSERT / UPDATE 可
-- [ ] `users`：自分のレコードのみ SELECT / UPDATE / DELETE 可
+- [x] `governors`：全員 SELECT 可（RLS有効化 + SELECT policy）
+- [x] `votes`：ログインユーザーが自分のレコードのみ SELECT / INSERT / UPDATE 可
+- [x] `users`：自分のレコードのみ SELECT / UPDATE / DELETE 可
 
 ### ビュー作成
-- [ ] `ranking` ビュー作成（全員読み取り可）
+- [x] `ranking` ビュー作成（全員読み取り可）
   ```sql
   CREATE VIEW ranking AS
   SELECT
@@ -33,7 +33,7 @@ Supabaseでテーブル・RLS・ビューを作成し、47知事の初期デー�
   ```
 
 ### 初期データ投入
-- [ ] 47都道府県の知事データを INSERT（名前・都道府県・政党・地域区分）
+- [x] 47都道府県の知事データを INSERT（名前・都道府県・政党・地域区分）
   - 地域区分：北海道 / 東北 / 関東 / 中部 / 近畿 / 中国 / 四国 / 九州
 
 ## 実装メモ

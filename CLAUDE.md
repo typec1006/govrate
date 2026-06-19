@@ -4,6 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 @AGENTS.md
 
+## 作業ルール
+
+実装フェーズのタスクが完了したら、対応する `docs/` 配下のmdファイルのチェックボックスを `- [ ]` から `- [x]` に更新すること。ページ単位・機能単位で完了したタイミングで都度更新する。
+
 ## Commands
 
 ```bash

@@ -5,18 +5,18 @@ Supabase Auth + Googleログインの設定と、ログイン・ログアウト�
 ## TODO
 
 ### Google OAuth設定（手動作業）
-- [ ] Google Cloud ConsoleでOAuthクライアントID・シークレットを作成
+- [x] Google Cloud ConsoleでOAuthクライアントID・シークレットを作成
   - 承認済みリダイレクトURIに `https://<project>.supabase.co/auth/v1/callback` を追加
-- [ ] Supabaseダッシュボード → Authentication → Providers → Google に Client ID / Secret を登録
-- [ ] 開発用リダイレクトURL `http://localhost:3000/**` をSupabaseに設定
+- [x] Supabaseダッシュボード → Authentication → Providers → Google に Client ID / Secret を登録
+- [x] 開発用リダイレクトURL `http://localhost:3000/**` をSupabaseに設定
 
 ### Server Actions
-- [ ] `app/lib/actions/auth.ts` 作成
-  - [ ] `signInWithGoogle()` — Supabaseのsignle sign-on開始
-  - [ ] `signOut()` — セッション破棄 + トップページへリダイレクト
+- [x] `app/lib/actions/auth.ts` 作成
+  - [x] `signInWithGoogle()` — Supabaseのsignle sign-on開始
+  - [x] `signOut()` — セッション破棄 + トップページへリダイレクト
 
 ### 動作確認
-- [ ] Googleログインボタンからサインインできる
+- [x] Googleログインボタンからサインインできる
 - [ ] ログアウト後にセッションが消える
 - [ ] 未認証で `/vote` にアクセス → `/ranking` にリダイレクトされる
 - [ ] 未認証で `/settings` にアクセス → `/ranking` にリダイレクトされる

@@ -5,27 +5,27 @@ Supabaseクライアントの導入と、プロジェクト全体の基盤セッ
 ## TODO
 
 ### パッケージ
-- [ ] `@supabase/supabase-js` `@supabase/ssr` をインストール
+- [x] `@supabase/supabase-js` `@supabase/ssr` をインストール
 
 ### 環境変数
-- [ ] `.env.local` を作成し、SupabaseのURL・Publishable Keyを設定
+- [x] `.env.local` を作成し、SupabaseのURL・Publishable Keyを設定
   ```
   NEXT_PUBLIC_SUPABASE_URL=
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
   ```
 
 ### Supabaseクライアント
-- [ ] `lib/supabase/client.ts` 作成（ブラウザ用 `createBrowserClient`）
-- [ ] `lib/supabase/server.ts` 作成（サーバー用 `createServerClient`、`import 'server-only'` 付き）
+- [x] `lib/supabase/client.ts` 作成（ブラウザ用 `createBrowserClient`）
+- [x] `lib/supabase/server.ts` 作成（サーバー用 `createServerClient`、`import 'server-only'` 付き）
 
 ### Proxy
-- [ ] `proxy.ts` 作成
-  - [ ] Supabaseトークンのリフレッシュ処理
-  - [ ] `/vote` `/settings` への未認証アクセスを `/ranking` へリダイレクト
+- [x] `proxy.ts` 作成
+  - [x] Supabaseトークンのリフレッシュ処理
+  - [x] `/vote` `/settings` への未認証アクセスを `/ranking` へリダイレクト
 
 ### デプロイ連携
-- [ ] GitHubリポジトリ作成・プッシュ
-- [ ] Vercelプロジェクト作成・GitHubリポジトリと連携（自動デプロイ設定）
+- [x] GitHubリポジトリ作成・プッシュ
+- [x] Vercelプロジェクト作成・GitHubリポジトリと連携（自動デプロイ設定）
 
 ## 実装メモ
 

@@ -5,19 +5,19 @@
 ## TODO
 
 ### データ取得・表示
-- [ ] `app/ranking/page.tsx` 作成（Server Component）
-- [ ] `ranking` ビューから全件取得してリスト表示
-  - [ ] 都道府県名・知事名・政党・平均スコア・投票数を表示
-  - [ ] 平均スコア降順で表示（DBビュー側でソート済み）
-- [ ] 未ログイン時：ページ上部にログイン誘導バナーを表示
+- [x] `app/ranking/page.tsx` 作成（Server Component）
+- [x] `ranking` ビューから全件取得してリスト表示
+  - [x] 都道府県名・知事名・政党・平均スコア・投票数を表示
+  - [x] 平均スコア降順で表示（DBビュー側でソート済み）
+- [x] 未ログイン時：ページ上部にログイン誘導バナーを表示
 
 ### リアルタイム更新
-- [ ] Supabase Realtimeで `votes` テーブルの変更を購読
-- [ ] 投票・変更があった際にランキングを自動更新
-- [ ] Realtimeの購読部分は Client Component として分離する
+- [x] Supabase Realtimeで `votes` テーブルの変更を購読
+- [x] 投票・変更があった際にランキングを自動更新
+- [x] Realtimeの購読部分は Client Component として分離する
 
 ### レスポンシブ
-- [ ] PC・スマホ両対応
+- [x] PC・スマホ両対応
 
 ## 実装メモ
 
