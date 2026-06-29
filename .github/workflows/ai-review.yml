@@ -45,7 +45,7 @@ jobs:
           REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "レビューの生成に失敗しました。"')
 
           gh pr comment "${{ github.event.pull_request.number }}" \
-            --body "## 🤖 AI Code Review
+            --body "## AI Code Review
 
 ${REVIEW}
 
