@@ -1,0 +1,53 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ai-review:
+    name: Claude AI Review
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          git diff origin/${{ github.base_ref }}...HEAD | head -c 40000 > /tmp/pr_diff.txt
+          echo "Diff size: $(wc -c < /tmp/pr_diff.txt) bytes"
+
+      - name: AI Code Review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DIFF=$(cat /tmp/pr_diff.txt)
+
+          RESPONSE=$(jq -n --arg diff "$DIFF" '{
+            model: "claude-haiku-4-5-20251001",
+            max_tokens: 2048,
+            messages: [{
+              role: "user",
+              content: ("以下のPR差分をコードレビューしてください。\n\n次の観点で日本語でレビューしてください:\n- バグ・潜在的な問題\n- セキュリティの懸念\n- パフォーマンスの問題\n- コードの品質・可読性\n- 改善提案\n\n問題がなければ「特に問題はありません」と伝えてください。\n\n```diff\n" + $diff + "\n```")
+            }]
+          }' | curl -s -X POST https://api.anthropic.com/v1/messages \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "content-type: application/json" \
+            -d @-)
+
+          REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "レビューの生成に失敗しました。"')
+
+          gh pr comment "${{ github.event.pull_request.number }}" \
+            --body "## 🤖 AI Code Review
+
+${REVIEW}
+
+---
+*Claude Haiku による自動コードレビュー*"
