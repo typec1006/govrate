@@ -24,7 +24,7 @@ jobs:
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
 
-            以下の観点でこのPRをコードレビューしてください（日本語で）:
+            このPRの差分を `gh pr diff` で取得し、以下の観点で日本語でコードレビューしてください:
             - バグ・潜在的な問題
             - セキュリティの懸念
             - パフォーマンスの問題
@@ -32,6 +32,5 @@ jobs:
             - 改善提案
 
             問題がなければ「特に問題はありません」と伝えてください。
-            フィードバックは `gh pr comment` でコメントとして投稿してください。
-          claude_args: |
-            --allowedTools "Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
+            レビュー結果は必ず `gh pr comment` でPRにコメントとして投稿してください。
+          claude_args: --allowedTools "Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
