@@ -62,12 +62,18 @@ req = urllib.request.Request(
 
 try:
     with urllib.request.urlopen(req, timeout=TIMEOUT) as res:
-        response = json.loads(res.read())
+        response_body = res.read()
 except HTTPError as e:
     print(f"Error: HTTP {e.code} {e.reason}", file=sys.stderr)
     sys.exit(1)
 except URLError as e:
     print(f"Error: API request failed - {e}", file=sys.stderr)
+    sys.exit(1)
+
+try:
+    response = json.loads(response_body)
+except json.JSONDecodeError as e:
+    print(f"Error: Invalid JSON response - {e}", file=sys.stderr)
     sys.exit(1)
 
 content = response.get("content") if isinstance(response, dict) else None
