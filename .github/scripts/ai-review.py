@@ -1,9 +1,31 @@
 import json
 import os
 import subprocess
+import sys
 import urllib.request
+from urllib.error import URLError
 
-diff = open("/tmp/pr_diff.txt").read()
+MODEL = "claude-haiku-4-5-20251001"
+API_URL = "https://api.anthropic.com/v1/messages"
+TIMEOUT = 30
+
+api_key = os.environ.get("ANTHROPIC_API_KEY")
+if not api_key:
+    print("Error: ANTHROPIC_API_KEY is not set", file=sys.stderr)
+    sys.exit(1)
+
+pr_number = os.environ.get("PR_NUMBER")
+if not pr_number:
+    print("Error: PR_NUMBER is not set", file=sys.stderr)
+    sys.exit(1)
+
+try:
+    with open("/tmp/pr_diff.txt") as f:
+        diff = f.read()
+except FileNotFoundError:
+    print("Error: /tmp/pr_diff.txt not found", file=sys.stderr)
+    sys.exit(1)
+
 prompt = f"""以下のPR差分をコードレビューしてください。
 
 次の観点で日本語でレビューしてください:
@@ -21,27 +43,40 @@ prompt = f"""以下のPR差分をコードレビューしてください。
 
 payload = json.dumps(
     {
-        "model": "claude-haiku-4-5-20251001",
+        "model": MODEL,
         "max_tokens": 2048,
         "messages": [{"role": "user", "content": prompt}],
     }
 ).encode()
 
 req = urllib.request.Request(
-    "https://api.anthropic.com/v1/messages",
+    API_URL,
     data=payload,
     headers={
-        "x-api-key": os.environ["ANTHROPIC_API_KEY"],
+        "x-api-key": api_key,
         "anthropic-version": "2023-06-01",
         "content-type": "application/json",
     },
 )
-with urllib.request.urlopen(req) as res:
-    review = json.loads(res.read())["content"][0]["text"]
+
+try:
+    with urllib.request.urlopen(req, timeout=TIMEOUT) as res:
+        response = json.loads(res.read())
+        review = response["content"][0]["text"]
+except URLError as e:
+    print(f"Error: API request failed - {e}", file=sys.stderr)
+    sys.exit(1)
+except (KeyError, IndexError) as e:
+    print(f"Error: Unexpected API response format - {e}", file=sys.stderr)
+    sys.exit(1)
 
 body = f"## AI Code Review\n\n{review}\n\n---\n*Claude Haiku による自動コードレビュー*"
 
-subprocess.run(
-    ["gh", "pr", "comment", os.environ["PR_NUMBER"], "--body", body],
-    check=True,
+result = subprocess.run(
+    ["gh", "pr", "comment", pr_number, "--body", body],
+    capture_output=True,
+    text=True,
 )
+if result.returncode != 0:
+    print(f"Error: Failed to post comment - {result.stderr}", file=sys.stderr)
+    sys.exit(1)
