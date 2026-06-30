@@ -3,7 +3,7 @@ import os
 import subprocess
 import sys
 import urllib.request
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 MODEL = "claude-haiku-4-5-20251001"
 API_URL = "https://api.anthropic.com/v1/messages"
@@ -62,15 +62,24 @@ req = urllib.request.Request(
 try:
     with urllib.request.urlopen(req, timeout=TIMEOUT) as res:
         response = json.loads(res.read())
-        review = response["content"][0]["text"]
+except HTTPError as e:
+    print(f"Error: HTTP {e.code} {e.reason}", file=sys.stderr)
+    sys.exit(1)
 except URLError as e:
     print(f"Error: API request failed - {e}", file=sys.stderr)
     sys.exit(1)
+
+if not isinstance(response, dict) or "content" not in response:
+    print(f"Error: Unexpected API response structure", file=sys.stderr)
+    sys.exit(1)
+
+try:
+    review = response["content"][0]["text"]
 except (KeyError, IndexError) as e:
     print(f"Error: Unexpected API response format - {e}", file=sys.stderr)
     sys.exit(1)
 
-body = f"## AI Code Review\n\n{review}\n\n---\n*Claude Haiku による自動コードレビュー*"
+body = f"## 🤖 AI Code Review\n\n{review}\n\n---\n*Claude Haiku による自動コードレビュー*"
 
 result = subprocess.run(
     ["gh", "pr", "comment", pr_number, "--body", body],
