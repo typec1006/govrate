@@ -7,6 +7,7 @@ from urllib.error import HTTPError, URLError
 
 MODEL = "claude-haiku-4-5-20251001"
 API_URL = "https://api.anthropic.com/v1/messages"
+API_VERSION = "2023-06-01"
 TIMEOUT = 30
 
 api_key = os.environ.get("ANTHROPIC_API_KEY")
@@ -20,7 +21,7 @@ if not pr_number:
     sys.exit(1)
 
 try:
-    with open("/tmp/pr_diff.txt") as f:
+    with open("/tmp/pr_diff.txt", encoding="utf-8") as f:
         diff = f.read()
 except FileNotFoundError:
     print("Error: /tmp/pr_diff.txt not found", file=sys.stderr)
@@ -54,7 +55,7 @@ req = urllib.request.Request(
     data=payload,
     headers={
         "x-api-key": api_key,
-        "anthropic-version": "2023-06-01",
+        "anthropic-version": API_VERSION,
         "content-type": "application/json",
     },
 )
@@ -69,12 +70,13 @@ except URLError as e:
     print(f"Error: API request failed - {e}", file=sys.stderr)
     sys.exit(1)
 
-if not isinstance(response, dict) or "content" not in response:
-    print(f"Error: Unexpected API response structure", file=sys.stderr)
+content = response.get("content") if isinstance(response, dict) else None
+if not isinstance(content, list) or len(content) == 0:
+    print("Error: Unexpected API response structure", file=sys.stderr)
     sys.exit(1)
 
 try:
-    review = response["content"][0]["text"]
+    review = content[0]["text"]
 except (KeyError, IndexError) as e:
     print(f"Error: Unexpected API response format - {e}", file=sys.stderr)
     sys.exit(1)
