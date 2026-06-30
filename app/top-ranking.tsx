@@ -48,7 +48,10 @@ export async function TopRankingContent() {
         })}
       </div>
       <div className="mt-4 text-center">
-        <Link href="/ranking" className="text-sm text-[#0571e6] hover:underline font-medium">
+        <Link
+          href="/ranking"
+          className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/30 hover:border-white/60 text-white text-sm font-bold transition-colors"
+        >
           ランキング全体を見る →
         </Link>
       </div>
