@@ -46,6 +46,11 @@ next-env.d.ts
 
 # local personal settings (not shared with team)
 .claude/settings.local.json
+.claude/agent-memory/
 
 # Serena MCP local project cache/memory
 .serena/
+serena-err*.txt
+
+# local tool version manager config (personal use)
+mise.toml
