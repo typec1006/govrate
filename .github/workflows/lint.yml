@@ -54,3 +54,30 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm audit --audit-level=high
+
+  notify:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    needs: [lint, typecheck, build, audit]
+    if: always()
+    steps:
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          CI_RESULT: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
+        run: |
+          if [ -z "$SLACK_WEBHOOK_URL" ]; then
+            echo "SLACK_WEBHOOK_URL is not set, skipping notification"
+            exit 0
+          fi
+          if [ "$CI_RESULT" = "failure" ]; then
+            STATUS_EMOJI="❌"
+            STATUS_TEXT="CI failed"
+          else
+            STATUS_EMOJI="✅"
+            STATUS_TEXT="CI succeeded"
+          fi
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          curl -sf -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"${STATUS_EMOJI} ${STATUS_TEXT}: ${{ github.repository }} (${{ github.ref_name }})\n<${RUN_URL}|Run #${{ github.run_number }}>\"}" \
+            "$SLACK_WEBHOOK_URL"
