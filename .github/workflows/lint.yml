@@ -81,8 +81,7 @@ jobs:
             STATUS_EMOJI="✅"
             STATUS_TEXT="CI succeeded"
           fi
-          TEXT="${STATUS_EMOJI} ${STATUS_TEXT}: ${REPO} (${REF_NAME})
-<${RUN_URL}|Run #${RUN_NUMBER}>"
+          TEXT=$(printf '%s %s: %s (%s)\n<%s|Run #%s>' "$STATUS_EMOJI" "$STATUS_TEXT" "$REPO" "$REF_NAME" "$RUN_URL" "$RUN_NUMBER")
           PAYLOAD=$(jq -n --arg text "$TEXT" '{text: $text}')
           curl -sf -X POST -H 'Content-type: application/json' \
             --data "$PAYLOAD" \
