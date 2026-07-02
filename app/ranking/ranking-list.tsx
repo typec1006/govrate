@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
 export type RankingRow = {
@@ -32,14 +32,16 @@ export default function RankingList({ initialData }: { initialData: RankingRow[]
     return () => { supabase.removeChannel(channel) }
   }, [])
 
-  const sortedRanking = [...ranking].sort((a, b) => {
-    if (sortKey === 'vote_count') {
-      return b.vote_count - a.vote_count
-    }
-    const scoreA = a.avg_score ?? -1
-    const scoreB = b.avg_score ?? -1
-    return scoreB - scoreA
-  })
+  const sortedRanking = useMemo(() => {
+    return [...ranking].sort((a, b) => {
+      if (sortKey === 'vote_count') {
+        return b.vote_count - a.vote_count
+      }
+      const scoreA = a.avg_score ?? -1
+      const scoreB = b.avg_score ?? -1
+      return scoreB - scoreA
+    })
+  }, [ranking, sortKey])
 
   const sortOptions: { key: SortKey; label: string }[] = [
     { key: 'avg_score', label: '平均スコア順' },
@@ -52,6 +54,7 @@ export default function RankingList({ initialData }: { initialData: RankingRow[]
         <button
           key={option.key}
           type="button"
+          aria-pressed={sortKey === option.key}
           onClick={() => setSortKey(option.key)}
           className={`px-4 py-1.5 text-sm font-bold rounded-full border transition-colors ${
             sortKey === option.key
