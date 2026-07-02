@@ -3,11 +3,13 @@ import Link from 'next/link'
 
 export async function TopRankingContent() {
   const supabase = await createClient()
-  const { data: ranking } = await supabase
+  const { data: ranking, error } = await supabase
     .from('ranking')
     .select('id, prefecture, name, avg_score, vote_count')
+    .order('avg_score', { ascending: false, nullsFirst: false })
     .limit(5)
 
+  if (error) console.error('Failed to fetch top ranking:', error)
   if (!ranking || ranking.length === 0) return null
 
   const medals = ['#d4af37', '#9ca3af', '#cd7f32']
