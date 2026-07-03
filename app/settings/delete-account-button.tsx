@@ -16,7 +16,7 @@ export default function DeleteAccountButton() {
     return (
       <button
         onClick={() => setConfirming(true)}
-        className="px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-red-600 hover:bg-red-100 transition-colors"
+        className="px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-red-600 hover:bg-red-100 transition-colors cursor-pointer"
       >
         退会する
       </button>
@@ -30,14 +30,14 @@ export default function DeleteAccountButton() {
         <button
           onClick={handleDelete}
           disabled={pending}
-          className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 disabled:opacity-50 transition-colors"
+          className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 disabled:opacity-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           {pending ? '処理中...' : '退会する'}
         </button>
         <button
           onClick={() => setConfirming(false)}
           disabled={pending}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+          className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer disabled:cursor-not-allowed"
         >
           キャンセル
         </button>

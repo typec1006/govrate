@@ -27,7 +27,7 @@ export default function UserMenu({ avatarUrl, name }: Props) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="w-8 h-8 rounded-full overflow-hidden border-2 border-white/40 hover:ring-2 hover:ring-white/60 transition-all"
+        className="w-8 h-8 rounded-full overflow-hidden border-2 border-white/40 hover:ring-2 hover:ring-white/60 transition-all cursor-pointer"
       >
         {avatarUrl ? (
           <Image src={avatarUrl} alt={name ?? 'ユーザー'} width={32} height={32} />
@@ -47,7 +47,7 @@ export default function UserMenu({ avatarUrl, name }: Props) {
             設定
           </Link>
           <form action={signOut}>
-            <button type="submit" className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+            <button type="submit" className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer">
               ログアウト
             </button>
           </form>
