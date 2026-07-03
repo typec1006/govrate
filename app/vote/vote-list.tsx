@@ -111,7 +111,7 @@ export default function VoteList({ governors, votes }: Props) {
                   <button
                     key={score}
                     onClick={() => handleVote(g.id, score)}
-                    className={`w-9 h-9 rounded-lg text-sm font-black transition-colors ${
+                    className={`w-9 h-9 rounded-lg text-sm font-black transition-colors cursor-pointer ${
                       currentScore === score
                         ? 'bg-[#044a80] text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

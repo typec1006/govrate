@@ -16,7 +16,7 @@ export default async function RankingContent() {
           <form action={signInWithGoogle}>
             <button
               type="submit"
-              className="shrink-0 font-bold underline hover:no-underline"
+              className="shrink-0 font-bold underline hover:no-underline cursor-pointer"
             >
               Googleでログイン
             </button>
