@@ -8,6 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 実装フェーズのタスクが完了したら、対応する `docs/` 配下のmdファイルのチェックボックスを `- [ ]` から `- [x]` に更新すること。ページ単位・機能単位で完了したタイミングで都度更新する。
 
+まとまった実装（ページ単位・機能単位）が完了したら、`code-reviewer` サブエージェントでレビューを行うこと。指摘があれば修正した上で再度レビューし、問題がなくなるまで繰り返す。
+
 ## Commands
 
 ```bash
