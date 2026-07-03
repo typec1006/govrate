@@ -1,0 +1,4 @@
+files=$(git diff --cached --name-only --diff-filter=ACM)
+if [ -n "$files" ]; then
+  echo "$files" | xargs npx secretlint --secretlintrc .secretlintrc.json
+fi
