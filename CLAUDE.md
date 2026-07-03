@@ -10,6 +10,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 まとまった実装（ページ単位・機能単位）が完了したら、`code-reviewer` サブエージェントでレビューを行うこと。指摘があれば修正した上で再度レビューし、問題がなくなるまで繰り返す。
 
+UI・フロントエンドの変更を行った場合は、実装完了を報告する前に必ず開発サーバーを起動し、実際にブラウザで画面を確認すること。
+
 ## Commands
 
 ```bash
