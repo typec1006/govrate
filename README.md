@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 知事レート
 
-## Getting Started
+47都道府県の知事を1〜5点で評価・投票できるWebサービス。Googleログインで認証し、各知事への評価をリアルタイムでランキング表示する。
 
-First, run the development server:
+## 技術スタック
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 16** (App Router, Turbopack)
+- **React 19**
+- **TypeScript 5** (strict mode)
+- **Tailwind CSS v4**
+- **Supabase** (DB / 認証 / Realtime)
+- **Vercel** (デプロイ)
+
+## セットアップ
+
+### 環境変数
+
+`.env.local` を作成し、以下を設定する。
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 開発サーバー起動
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[http://localhost:3000](http://localhost:3000) を開く。
 
-## Learn More
+## コマンド
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev       # 開発サーバー起動（Turbopack）
+npm run build     # 本番ビルド
+npm run start     # 本番サーバー起動
+npm run lint      # ESLint実行
+npx next typegen  # PageProps/LayoutProps/RouteContext型ヘルパーの生成
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ドキュメント
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 開発方針・規約: [`CLAUDE.md`](./CLAUDE.md)
+- 実装フェーズごとの詳細: [`docs/`](./docs)
 
-## Deploy on Vercel
+## デプロイ
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Vercel](https://vercel.com/new) にリポジトリを接続し、上記の環境変数を設定してデプロイする。
