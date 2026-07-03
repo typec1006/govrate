@@ -42,3 +42,5 @@ Supabaseでテーブル・RLS・ビューを作成し、47知事の初期デー�
 - `votes` の upsert は `ON CONFLICT (user_id, governor_id) DO UPDATE` で行う
 - RLS は各テーブルで `ALTER TABLE ... ENABLE ROW LEVEL SECURITY` を忘れずに実行する
 - `ranking` ビューには RLS を適用せず、全員読み取り可にする
+- `ranking` ビューは `security_invoker = off`（デフォルト）のままにする。`security_invoker = true` にすると集計クエリが閲覧者自身の権限で実行され、`votes` のRLS（自分のレコードのみ閲覧可）が集計にも適用されてしまい、匿名/他ユーザーからは他人の投票が集計に含まれず `avg_score`/`vote_count` が正しく出ない（2026-06-29の `fix_ranking_view_security_invoker` マイグレーションで一度 `true` にした結果このバグが発生し、2026-07-03の `revert_ranking_view_security_invoker` で `off` に戻した）
+  - 副作用としてSupabaseのlintで「Security Definer View」警告（ERRORレベル）が出るが、本ビューは `user_id` 等の個人情報を含まず集計値のみを公開する設計のため許容している
