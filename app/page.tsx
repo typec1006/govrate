@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { TopRankingContent, TopRankingSkeleton } from './top-ranking'
@@ -23,6 +24,10 @@ export default async function Home() {
         <Suspense fallback={<TopRankingSkeleton />}>
           <TopRankingContent />
         </Suspense>
+
+        <p className="text-gray-400 text-xs mt-8">
+          <Link href="/signup" className="underline hover:text-gray-200">初めての方はこちら</Link>
+        </p>
       </div>
     </div>
   )
