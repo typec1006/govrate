@@ -105,6 +105,8 @@ GROUP BY g.id
 ORDER BY avg_score DESC NULLS LAST;
 ```
 
+**注意**: `ranking`ビューは `security_invoker = off`(デフォルト)のままにすること。`true`にすると集計が閲覧者自身のRLS権限で実行され、`votes`の「自分のレコードのみSELECT可」が集計にも適用されてしまい、匿名/他ユーザーからは他人の投票が見えず`avg_score`/`vote_count`が正しく出ない不具合が発生する(2026-07-03に実際に発生・修正済み)。副作用でSupabase lintの「Security Definer View」警告(ERROR)が出るが、本ビューは個人情報を含まず集計値のみを公開するため許容している。
+
 ### 画面一覧
 
 | 画面 | パス | ログイン |
